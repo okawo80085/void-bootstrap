@@ -188,10 +188,11 @@ generate_iso_image() {
 }
 
 
-# # Check for root permissions.
-# if [ "$(id -u)" -ne 0 ]; then
-#     die "Must be run as root, exiting..."
-# fi
+# Check for root permissions.
+if [ "$(id -u)" -ne 0 ]; then
+    echo "Must be run as root, exiting..."
+    exit 1
+fi
 
 # Configure dracut to use overlayfs for the writable overlay.
 BOOT_CMDLINE="$BOOT_CMDLINE rd.live.overlay.overlayfs=1 "
@@ -209,16 +210,26 @@ ARCH=$(xbps-uhelper arch)
 : ${BASE_SYSTEM_PKG:=base-system}
 : ${BOOT_TITLE:="Void Linux"}
 
-IMAGE_NAME="somainline-x86_64-gnome-rootfs-2023-10-20--14-22.img"
+unset -v IMAGE_NAME
+for file in "$(pwd -P)/images"/*; do
+  [[ $file -nt $IMAGE_NAME ]] && IMAGE_NAME=$file
+done
 
-if [ -n "$ROOTDIR" ]; then
-    BUILDDIR=$(mktemp --tmpdir="$ROOTDIR" -d)
-else
-    BUILDDIR=$(mktemp --tmpdir="$(pwd -P)" -d)
+if [ -z IMAGE_NAME ]; then
+    echo no images found, please build an image
+    exit -1
 fi
+
+echo using image for livecd build: $IMAGE_NAME
+
+# if [ -n "$ROOTDIR" ]; then
+#     BUILDDIR=$(mktemp --tmpdir="$ROOTDIR" -d)
+# else
+BUILDDIR=$(mktemp --tmpdir="$(pwd -P)" -d)
+# fi
 BUILDDIR=$(readlink -f "$BUILDDIR")
 IMAGEDIR="$BUILDDIR/images"
-ROOTFSIMAGE="$(pwd -P)/images/$IMAGE_NAME"
+ROOTFSIMAGE=$IMAGE_NAME
 ROOTFS="$IMAGEDIR/rootfs"
 BOOT_DIR="$IMAGEDIR/boot"
 ISOLINUX_DIR="$BOOT_DIR/isolinux"
@@ -253,7 +264,7 @@ KERNELVERSION=$($XBPS_UHELPER_CMD getpkgversion ${_kver})
 echo $KERNELVERSION
 echo $OUTPUT_FILE
 
-echo "Moving boot stuff..."
+echo "Making boot stuff..."
 make_boot_things
 
 echo "Generating isolinux support for PC-BIOS systems..."
@@ -273,3 +284,5 @@ cleanup_rootfs
 
 hsize=$(du -sh "$OUTPUT_FILE"|awk '{print $1}')
 echo "Created $(readlink -f "$OUTPUT_FILE") ($hsize) successfully."
+
+rm -rf $BUILDDIR
