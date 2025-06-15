@@ -2,7 +2,7 @@
 pkgname=soctemp
 version=1.0
 revision=1
-build_style=meta
+# metapackage=yes
 depends="python3"
 short_desc="Python 3 program to read embedded SoC temperature sensors"
 maintainer="Jami Kettunen <jami.kettunen@protonmail.com>"

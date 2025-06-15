@@ -2,7 +2,7 @@
 pkgname=usbd
 version=0+git20221219
 revision=1
-build_style=meta
+# metapackage=yes
 depends="unudhcpd" # bash iproute2
 short_desc="Setup USB ConfigFS gadget for different modes such as RNDIS"
 maintainer="Jami Kettunen <jami.kettunen@protonmail.com>"
