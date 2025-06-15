@@ -17,6 +17,7 @@ users_pw_default="" # disable pass login for root
 users_sudo_askpass=false
 #permit_root_login=true
 hostname="somainline"
+release="20250202"
 
 # overwrite systemd-nspawn stub resolv.conf
 dns=(
@@ -27,7 +28,7 @@ dns=(
 	2606:4700:4700::1111
 	2606:4700:4700::1001
 )
-mirror="https://repo-de.voidlinux.org/"
+mirror="https://repo-fi.voidlinux.org/"
 img_name_format="somainline-%a-base-rootfs-$(date +'%Y-%m-%d--%H-%M').img"
 img_size="3G"
 #img_compress="xz"

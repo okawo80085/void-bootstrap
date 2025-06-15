@@ -6,12 +6,10 @@ installusrs=($USERNAMES)
 
 runas ${installusrs[0]} <<EOF
 git clone https://github.com/vinceliuice/Orchis-theme.git
-./Orchis-theme/install.sh -t pink -c dark --tweaks black --shell 42 -l
-gsettings set org.gnome.desktop.interface gtk-theme 'Orchis-Pink-Dark'
-gsettings set org.gnome.shell enabled-extensions "['user-theme@gnome-shell-extensions.gcampax.github.com']"
-gnome-extensions enable user-theme@gnome-shell-extensions.gcampax.github.com
-gsettings set org.gnome.shell.extensions.user-theme name 'Orchis-Pink-Dark'
+./Orchis-theme/install.sh -l -t pink -c dark --tweaks black -name orchis-inssoma
 EOF
+
+sudo flatpak override --filesystem=xdg-config/gtk-3.0 && sudo flatpak override --filesystem=xdg-config/gtk-4.0
 
 rm -rf ./Orchis-theme
 

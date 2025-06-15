@@ -34,8 +34,7 @@ extra_install_pkgs+=(
 	nvtop
 
 	# other stuff
-	sublime-text4
-	telegram-desktop
+	chromium
 	Signal-Desktop
 
 	kicad
@@ -73,7 +72,6 @@ overlays=(
 	somainline-gnome-settings
 
 	orchis-theme
-	brave-flatpak
 	gnome-extensions-manager-flatpak
 
 	# megaTinyCore-arduino-cli
