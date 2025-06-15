@@ -83,7 +83,7 @@ base_setup() {
 
 	log "Finishing base system setup..."
 	xbps-install base-system -y
-	xbps-remove -y base-voidstrap
+	# xbps-remove -y base-voidstrap
 }
 stage1_setup() {
 	mirror_setup
