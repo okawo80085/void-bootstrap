@@ -24,10 +24,10 @@ base_pkgs+=(
 	flatpak
 )
 extra_build_pkgs+=(
-	mutter gnome-shell # gnome shell mobile
-	megapixels feedbackd #gnome-calls purism-chatty
+	feedbackd #megapixels gnome-calls purism-chatty
 )
 extra_install_pkgs+=(
+	mutter gnome-shell # gnome shell mobile
 	megapixels #gnome-calls purism-chatty
 
 	psensor
