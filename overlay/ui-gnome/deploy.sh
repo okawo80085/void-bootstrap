@@ -5,7 +5,7 @@ xbps-install -y dbus-elogind-libs dbus-elogind-x11 xdg-user-dirs-gtk xdg-utils
 # GPU
 xbps-install -y mesa-dri
 # Base GUI
-xbps-install -y xorg-server-xwayland xf86-video-fbdev xf86-input-libinput
+xbps-install -y xorg-server-xwayland xorg-server xf86-video-fbdev xf86-input-libinput
 
 # A small GNOME desktop with some default applications installed
 xbps-install -y gnome-core \
